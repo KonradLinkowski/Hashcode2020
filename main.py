@@ -1,6 +1,8 @@
 from Book import Book
 from Library import Library
 
+# load
+
 books_num, libraries_num, days_num = [int(x) for x in input().split(' ')]
 
 books = [Book(i, int(x)) for i, x in enumerate(input().split(' '))]
@@ -11,5 +13,9 @@ for l in range(libraries_num):
     l_books = [int(x) for x in input().split(' ')]
     libraries.append(Library(l, signup, bpd, l_books))
 
-print([str(x) for x in books])
-print([str(x) for x in libraries])
+
+print(libraries)
+print(books)
+# solve
+
+
