@@ -12,19 +12,36 @@ for l in range(libraries_num):
     libraries.append(Library(l, signup, bpd, l_books))
 
 
-def sum_for_lib(lib):
-    s = 0
-    for book in lib.books:
-        s += book.score
-    return s
+def calc_prob():
+    prob = [0 for x in books]
+    for l in libraries:
+        for b in l.books:
+            prob[b.id] += 1
+    return prob
 
-sums = [sum_for_lib(l) for l in libraries]
-for i, l in enumerate(libraries):
-    l.sum = sums[i]
+# libraries.sort(key=lambda l: l.signup)
+probs = calc_prob()
+max_prob = max(probs)
+max_sign = max([x.signup for x in libraries])
+max_bpd = max([x.bpd for x in libraries])
 
-    l.fitness = sums[i] / l.signup * l.bpd
+# print(max_sign)
+# d = [0 for x in range(max(xd))]
+# for x in xd:
+#     # print(x)
+#     d[x - 1] += 1
+# print(max_prob)
 
-libraries.sort(key=lambda l: l.fitness, reverse=True)
+for l in libraries:
+    l.norm_bpd(max_bpd)
+    l.norm_sign(max_sign)
+    l.calc_sum(probs, max_prob)
+    l.calc_fitness()
+    l.sort_books()
+
+
+libraries.sort(key=lambda l: (-l.signup, l.fitness), reverse=True)
+# print([(x.signup, x.fitness, x.books) for x in libraries][:2])
 
 ind = 0
 signup_sum = 0
