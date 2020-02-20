@@ -6,7 +6,8 @@ class Library:
         self.books = books
 
     def __str__(self):
-        return f'Library {self.id} signup: {self.signup} bpd: {self.bpd}'
+        books_joined = ' , '.join([str(x) for x in self.books])
+        return f'Library {self.id} signup: {self.signup} bpd: {self.bpd} books: [{books_joined}]'
     
     def __repr__(self):
         return self.__str__()
