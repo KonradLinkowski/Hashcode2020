@@ -40,7 +40,7 @@ for l in libraries:
     l.sort_books()
 
 
-libraries.sort(key=lambda l: (-l.signup, l.fitness), reverse=True)
+libraries.sort(key=lambda l: (l.fitness, -l.signup), reverse=True)
 # print([(x.signup, x.fitness, x.books) for x in libraries][:2])
 
 ind = 0
