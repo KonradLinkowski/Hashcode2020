@@ -13,10 +13,10 @@ class Library:
 
     def calc_sum(self, probs, max_prob):
         s = 0
-        mx = 3 * max_prob
+        mx = max_prob
         for book in self.books:
             p = probs[book.id]
-            s += book.score / (p + 2 * max_prob) / mx
+            s += book.score / p / mx
         self.score_sum = s
         return s
 
@@ -27,7 +27,7 @@ class Library:
         if self.bpd > len(self.books):
             self.fitness = self.score_sum / self.norm_signup
         else:
-            self.fitness = (10 * self.score_sum  - 8 * self.norm_signup) * self.norm_bpd
+            self.fitness = self.score_sum  / self.norm_signup * self.norm_bpd
         return self.fitness
 
     def __str__(self):
