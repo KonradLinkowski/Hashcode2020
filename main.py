@@ -1,8 +1,6 @@
 from Book import Book
 from Library import Library
 
-# load
-
 books_num, libraries_num, days_num = [int(x) for x in input().split(' ')]
 
 books = [Book(i, int(x)) for i, x in enumerate(input().split(' '))]
@@ -20,13 +18,23 @@ def sum_for_lib(lib):
         s += book.score
     return s
 
-
-# print('\n'.join([str(x) for x in libraries]))
 sums = [sum_for_lib(l) for l in libraries]
-for s in sums:
-    print(s)
+for i, l in enumerate(libraries):
+    l.sum = sums[i]
 
-# print(books)
-# solve
+    l.fitness = sums[i] / l.signup * l.bpd
 
+libraries.sort(key=lambda l: l.fitness, reverse=True)
 
+ind = 0
+signup_sum = 0
+for l in libraries:
+    signup_sum += l.signup
+    ind += 1
+    if (signup_sum > days_num):
+        break
+
+print(ind)
+for l in libraries[:ind]:
+    print(f'{l.id} {len(l.books)}')
+    print(' '.join(str(b.id) for b in l.books))
